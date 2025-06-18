@@ -39,7 +39,7 @@ public class Bucket {
                 if (refill != null) {
                     player.getInventory().setItem(slot, refill);
                     player.getInventory().addItem(new ItemStack(currentItem.getType()));
-                    new SendRefillFeedback(player, refill);
+                    new SendRefillFeedback(player);
                 }
                 return;
             }
@@ -51,22 +51,9 @@ public class Bucket {
                 if (refill != null) {
                     player.getInventory().setItem(slot, refill);
                     player.getInventory().addItem(new ItemStack(Material.BUCKET));
-                    new SendRefillFeedback(player, refill);
+                    new SendRefillFeedback(player);
                 }
-                return;
             }
-
-//            // If player emptied a lava/milk/powder_snow bucket (now holding air or empty bucket)
-//            if ((usedType == Material.LAVA_BUCKET || usedType == Material.MILK_BUCKET || usedType == Material.POWDER_SNOW_BUCKET) &&
-//                    (currentItem == null || currentItem.getType() == Material.AIR || currentItem.getType() == Material.BUCKET)) {
-//                ItemStack refill = new FindAndRemoveStack(player, usedType, 1, slot).getRefillStack();
-//                if (refill != null) {
-//                    player.getInventory().setItem(slot, refill);
-//                    player.getInventory().addItem(new ItemStack(Material.BUCKET));
-//                    new SendRefillFeedback(player, refill);
-//                }
-//                return;
-//            }
         }, 1L);
     }
 

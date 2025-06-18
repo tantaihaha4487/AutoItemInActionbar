@@ -38,7 +38,7 @@ public class Item {
                     ItemStack refill = new FindAndRemoveStack(player, usedType, maxStack, slot).getRefillStack();
                     if (refill != null) {
                         player.getInventory().setItem(slot, refill);
-                        new SendRefillFeedback(player, refill);
+                        new SendRefillFeedback(player);
                     }
                 }
             }
@@ -56,7 +56,7 @@ public class Item {
                 ItemStack refill = new FindAndRemoveStack(player, dropType, maxStack, slot).getRefillStack();
                 if (refill != null) {
                     player.getInventory().setItem(slot, refill);
-                    new SendRefillFeedback(player, refill);
+                    new SendRefillFeedback(player);
                 }
             }, 1L);
         }

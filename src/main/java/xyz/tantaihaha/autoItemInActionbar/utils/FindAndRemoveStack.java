@@ -6,38 +6,14 @@ import org.bukkit.inventory.ItemStack;
 
 public class FindAndRemoveStack {
 
-    private ItemStack refillStack;
-    private ItemStack removedStack;
-    private int currentSlot;
+    private final ItemStack refillStack;
 
-    public FindAndRemoveStack(ItemStack refillStack, ItemStack removedStack, int currentSlot) {
+    public FindAndRemoveStack(ItemStack refillStack) {
         this.refillStack = refillStack;
-        this.removedStack = removedStack;
-        this.currentSlot = currentSlot;
     }
 
     public ItemStack getRefillStack() {
         return refillStack;
-    }
-
-    public void setRefillStack(ItemStack refillStack) {
-        this.refillStack = refillStack;
-    }
-
-    public ItemStack getRemovedStack() {
-        return removedStack;
-    }
-
-    public void setRemovedStack(ItemStack removedStack) {
-        this.removedStack = removedStack;
-    }
-
-    public int getCurrentSlot() {
-        return currentSlot;
-    }
-
-    public void setCurrentSlot(int currentSlot) {
-        this.currentSlot = currentSlot;
     }
 
     /**
@@ -60,15 +36,11 @@ public class FindAndRemoveStack {
                 }
 
                 this.refillStack = moved;
-                this.removedStack = invItem;
-                this.currentSlot = i;
                 return;
             }
         }
 
         // If nothing found
         this.refillStack = null;
-        this.removedStack = null;
-        this.currentSlot = -1;
     }
 }
