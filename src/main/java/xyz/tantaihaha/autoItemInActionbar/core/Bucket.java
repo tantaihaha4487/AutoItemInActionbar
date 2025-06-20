@@ -8,6 +8,8 @@ import org.bukkit.plugin.Plugin;
 import xyz.tantaihaha.autoItemInActionbar.utils.FindAndRemoveStack;
 import xyz.tantaihaha.autoItemInActionbar.utils.SendRefillFeedback;
 
+import static xyz.tantaihaha.autoItemInActionbar.core.Refill.isBucketType;
+
 public class Bucket {
     private static Plugin plugin;
     public Bucket(Plugin plugin) {
@@ -20,7 +22,7 @@ public class Bucket {
      *
      * @param player The player whose inventory will be refilled.
      */
-    public static void refill(Player player) {
+    public static void refillBucket (Player player) {
         int slot = player.getInventory().getHeldItemSlot();
         ItemStack usedItem = player.getInventory().getItem(slot);
         Material usedType = (usedItem != null && usedItem.getType() != Material.AIR) ? usedItem.getType() : null;
@@ -55,13 +57,5 @@ public class Bucket {
                 }
             }
         }, 1L);
-    }
-
-    private static boolean isBucketType(Material type) {
-        return type == Material.BUCKET
-                || type == Material.WATER_BUCKET
-                || type == Material.LAVA_BUCKET
-                || type == Material.MILK_BUCKET
-                || type == Material.POWDER_SNOW_BUCKET;
     }
 }

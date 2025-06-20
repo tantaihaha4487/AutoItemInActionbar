@@ -8,6 +8,8 @@ import org.bukkit.plugin.Plugin;
 import xyz.tantaihaha.autoItemInActionbar.utils.FindAndRemoveStack;
 import xyz.tantaihaha.autoItemInActionbar.utils.SendRefillFeedback;
 
+import static xyz.tantaihaha.autoItemInActionbar.core.Refill.isBucketType;
+
 public class Item {
     private static Plugin plugin;
 
@@ -21,14 +23,18 @@ public class Item {
      *
      * @param player The player whose inventory will be refilled.
      */
-    public static void refill(Player player) {
+    public static void refillItem(Player player) {
         int slot = player.getInventory().getHeldItemSlot();
         ItemStack usedItem = player.getInventory().getItem(slot);
         Material usedType = (usedItem != null && usedItem.getType() != Material.AIR) ? usedItem.getType() : null;
         int maxStack = (usedType != null) ? usedType.getMaxStackSize() : 64;
 
         // Check if the used item is a bucket return
-        if (usedItem == null || (usedItem.displayName().toString().contains("Bucket"))) return;
+        if (usedItem == null || isBucketType(usedType)) return;
+        // If the used item is armor, should not refill
+        if (usedItem.getType().name().endsWith("_HELMET") || usedItem.getType().name().endsWith("_CHESTPLATE")
+                || usedItem.getType().name().endsWith("_LEGGINGS") || usedItem.getType().name().endsWith("_BOOTS")) return;
+
 
         Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
             ItemStack currentItem = player.getInventory().getItem(slot);
@@ -45,7 +51,14 @@ public class Item {
         }, 1L);
     }
 
-    public static void refillOnDrop(Player player, ItemStack dropped) {
+
+    /**
+     * Refills the player's held item when an item is dropped.
+     *
+     * @param player The player who dropped the item.
+     * @param dropped The item that was dropped.
+     */
+    public static void refillOnDropItem(Player player, ItemStack dropped) {
         int slot = player.getInventory().getHeldItemSlot();
         // Only refill if the dropped item was from the held slot
         ItemStack handItem = player.getInventory().getItem(slot);
