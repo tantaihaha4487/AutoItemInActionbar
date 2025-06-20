@@ -1,4 +1,4 @@
-### Maven template
++### Maven template
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -51,3 +51,6 @@ replay_pid*
 *.iml
 out
 gen
+
+
+/build.xml
