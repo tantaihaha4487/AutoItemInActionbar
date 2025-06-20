@@ -11,6 +11,6 @@ public class SendRefillFeedback {
                 ChatColor.GOLD + ChatColor.BOLD + ") " +
                 ChatColor.GREEN + ChatColor.BOLD + "Auto Item In Actionbar";
         player.sendActionBar(message);
-        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.5f, 1.2f);
     }
 }
