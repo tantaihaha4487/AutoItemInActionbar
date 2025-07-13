@@ -7,6 +7,10 @@
     <img src="https://img.shields.io/github/v/release/tantaihaha4487/AutoItemInActionbar?style=flat-square" alt="Latest Release">
   </a>
 
+
+# Preview
+![](https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/preview.gif)
+
 AutoItemInActionbar is a lightweight utility plugin that ensures you always have important items ready in your hand or off-hand, refilling them automatically from your inventory.
 
 ## Features
