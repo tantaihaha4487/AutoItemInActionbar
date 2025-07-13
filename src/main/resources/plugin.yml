@@ -1,5 +1,5 @@
 name: autoItemInActionbar
-version: '1.0-SNAPSHOT'
+version: '1.0.1'
 main: xyz.tantaihaha.autoItemInActionbar.AutoItemInActionbar
 api-version: '1.21'
 author: TantaiHaha
