@@ -1,0 +1,4 @@
+name: AutoItemInActionbar-Rebuild
+version: '1.0.0'
+main: net.thanachot.autoItemInActionbar.AutoItemInActionbar
+api-version: '1.21'
