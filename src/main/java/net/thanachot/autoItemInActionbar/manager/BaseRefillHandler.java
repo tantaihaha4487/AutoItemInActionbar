@@ -1,6 +1,5 @@
 package net.thanachot.autoItemInActionbar.manager;
 
-import net.thanachot.autoItemInActionbar.finder.Finder;
 import net.thanachot.autoItemInActionbar.finder.FoundItem;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -40,6 +39,8 @@ public abstract class BaseRefillHandler {
      * Return null if no refill should happen.
      */
     protected abstract FoundItem tryFindSource(Player player, ItemStack triggerItem);
+
+
 
 
     /**
