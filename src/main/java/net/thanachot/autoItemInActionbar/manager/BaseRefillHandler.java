@@ -1,5 +1,7 @@
 package net.thanachot.autoItemInActionbar.manager;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.thanachot.autoItemInActionbar.finder.FoundItem;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -69,6 +71,8 @@ public abstract class BaseRefillHandler {
      * Hook called after refill. Subclass can override for specific use cases.
      */
     protected void onRefillSuccess(Player player, FoundItem foundItem, ItemStack triggerItem) {
+        Component message = MiniMessage.miniMessage().deserialize("<b><gold>(<yellow>i</yellow>)</gold></b> <gradient:#9eee22:#55EA80:#246FD6>Auto Item In Actionbar</gradient>");
+        player.sendActionBar(message);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.6f, 0.7f);
     }
 }
