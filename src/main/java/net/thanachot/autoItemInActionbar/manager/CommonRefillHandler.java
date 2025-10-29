@@ -12,11 +12,15 @@ public class CommonRefillHandler extends BaseRefillHandler {
     @Override
     protected FoundItem tryFindSource(Player player, ItemStack triggerItem) {
         int heldSlot = player.getInventory().getHeldItemSlot();
-        ItemStack heldItem = player.getInventory().getItemInMainHand();
+        ItemStack heldItem = player.getInventory().getItem(heldSlot);
 
-        if (!(heldItem.getType() == Material.AIR)) return null; // Ignore if held item is not empty
+        if (heldItem != null && heldItem.getType() != Material.AIR) {
+            if (heldItem.getAmount() > 1) {
+                return null; // Don't refill if there's more than one item in the stack
+            }
+        }
 
-        return Finder.findFirstMatch(player, triggerItem.getType(), heldSlot);
+        return Finder.findFirstMatch(player.getInventory(), triggerItem.getType(), heldSlot);
     }
 
     @Override

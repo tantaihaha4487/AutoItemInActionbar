@@ -52,7 +52,6 @@ public abstract class BaseRefillHandler {
         int maxStackSize = triggerItem.getMaxStackSize();
         int heldSlot = player.getInventory().getHeldItemSlot();
 
-        // Calculate how much to move to the action bar
         int amountToMove = Math.min(amountInSource, maxStackSize);
 
         if (amountToMove <= 0) return;
@@ -70,6 +69,6 @@ public abstract class BaseRefillHandler {
      * Hook called after refill. Subclass can override for specific use cases.
      */
     protected void onRefillSuccess(Player player, FoundItem foundItem, ItemStack triggerItem) {
-        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.6f, 0.7f);
     }
 }
