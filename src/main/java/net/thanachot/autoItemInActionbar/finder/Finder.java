@@ -13,7 +13,6 @@ public class Finder {
 
     @Deprecated
     public static FoundItem findFirstMatch(Player player, Material type, int excludedSlot) {
-
         ItemStack[] playerInventory = player.getInventory().getContents();
         for (int i = 0; i < playerInventory.length; i++) {
             if (i == excludedSlot) continue; // Skip the excluded slot

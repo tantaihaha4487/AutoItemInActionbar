@@ -15,9 +15,7 @@ public class CommonRefillHandler extends BaseRefillHandler {
         ItemStack heldItem = player.getInventory().getItem(heldSlot);
 
         if (heldItem != null && heldItem.getType() != Material.AIR) {
-            if (heldItem.getAmount() > 1) {
-                return null; // Don't refill if there's more than one item in the stack
-            }
+            if (heldItem.getAmount() > 1) return null; // Don't refill if there's more than one item in the stack
         }
 
         return Finder.findFirstMatch(player.getInventory(), triggerItem.getType(), heldSlot);

@@ -7,7 +7,7 @@ public final class AutoItemInActionbar extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
     }
 
     @Override
