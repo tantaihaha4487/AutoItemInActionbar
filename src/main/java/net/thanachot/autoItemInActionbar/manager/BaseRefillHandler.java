@@ -20,15 +20,13 @@ public abstract class BaseRefillHandler {
     */
 
     public final void handle(Player player, ItemStack triggerItem) {
-        UUID id = player.getUniqueId();
 
+        UUID id = player.getUniqueId();
         if (!processing.add(id)) return; // add returns false if already present
 
         try {
             FoundItem foundItem = tryFindSource(player, triggerItem);
-
             if (foundItem == null) return; // No item found to refill with
-
             performRefill(player, foundItem, triggerItem);
             onRefillSuccess(player, foundItem, triggerItem);
         } finally {
@@ -43,23 +41,24 @@ public abstract class BaseRefillHandler {
     protected abstract FoundItem tryFindSource(Player player, ItemStack triggerItem);
 
 
-
-
     /**
      * Common refill logic (can be overridden if needed).
+     *
      */
     protected void performRefill(Player player, FoundItem foundItem, ItemStack triggerItem) {
         ItemStack sourceStack = foundItem.getItemStack();
         int amountInSource = sourceStack.getAmount();
-        int maxStackSize = triggerItem.getMaxStackSize();
+        int maxStackSize = sourceStack.getMaxStackSize(); // Use source stack for max size
         int heldSlot = player.getInventory().getHeldItemSlot();
 
-        int amountToMove = Math.min(amountInSource, maxStackSize);
+        int currentAmountInHand = player.getInventory().getItem(heldSlot) != null ? player.getInventory().getItem(heldSlot).getAmount() : 0;
+        int amountToMove = Math.min(amountInSource, maxStackSize - currentAmountInHand);
+
 
         if (amountToMove <= 0) return;
 
-        ItemStack refillStack = triggerItem.clone();
-        refillStack.setAmount(amountToMove);
+        ItemStack refillStack = sourceStack.clone(); // CORRECT: Clone the source stack
+        refillStack.setAmount(currentAmountInHand + amountToMove);
 
         player.getInventory().setItem(heldSlot, refillStack);
 
