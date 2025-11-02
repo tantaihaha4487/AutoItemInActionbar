@@ -9,10 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerEggThrowEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerListener implements Listener {
@@ -57,6 +54,12 @@ public class PlayerListener implements Listener {
     public void onBucketEmpty(PlayerBucketEmptyEvent event) {
         Player player = event.getPlayer();
         Bukkit.getScheduler().runTaskLater(plugin, () -> bucketEmptyRefillHandler.handle(player, ItemStack.of(event.getBucket())), 1L);
+    }
+
+    @EventHandler
+    public void onPlayerItemBreak(PlayerItemBreakEvent event) {
+        Player player = event.getPlayer();
+        commonRefillHandler.handle(player, event.getBrokenItem());
     }
 
 }
