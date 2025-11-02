@@ -1,10 +1,10 @@
 package net.thanachot.autoItemInActionbar.listener;
 
 import net.thanachot.autoItemInActionbar.AutoItemInActionbar;
-import net.thanachot.autoItemInActionbar.manager.BucketEmptyRefillHandler;
-import net.thanachot.autoItemInActionbar.manager.BucketFillRefillHandler;
 import net.thanachot.autoItemInActionbar.manager.CommonRefillHandler;
+import net.thanachot.autoItemInActionbar.manager.RemainderProviderItemHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,14 +16,39 @@ public class PlayerListener implements Listener {
 
     private final AutoItemInActionbar plugin;
     CommonRefillHandler commonRefillHandler = new CommonRefillHandler();
-    BucketFillRefillHandler bucketFillRefillHandler = new BucketFillRefillHandler();
-    BucketEmptyRefillHandler bucketEmptyRefillHandler = new BucketEmptyRefillHandler();
+    RemainderProviderItemHandler remainderProviderItemHandler = new RemainderProviderItemHandler();
 
 
     public PlayerListener(AutoItemInActionbar plugin) {
         this.plugin = plugin;
     }
 
+
+    @EventHandler
+    public void onBucketFill(PlayerBucketFillEvent event) {
+        Player player = event.getPlayer();
+        // Refill is delayed by 1 tick to ensure the game has processed the bucket fill action.
+        // When a player fills a bucket:
+        // 1. The item in their hand (an empty BUCKET) is replaced by the filled bucket (e.g., WATER_BUCKET).
+        // 2. We trigger the refill handler with:
+        //    - itemBeforeAction: An empty BUCKET. The handler will search for and consume another empty BUCKET from the inventory.
+        //    - remainderItem: The filled bucket from the event. The handler will give this item back to the player.
+        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(Material.BUCKET), event.getItemStack()), 1L);
+
+    }
+
+    @EventHandler
+    public void onBucketEmpty(PlayerBucketEmptyEvent event) {
+        Player player = event.getPlayer();
+        // Refill is delayed by 1 tick to ensure the game has processed the bucket empty action.
+        // When a player empties a bucket:
+        // 1. The item in their hand (e.g., WATER_BUCKET) is replaced by an empty BUCKET.
+        // 2. We trigger the refill handler with:
+        //    - itemBeforeAction: The filled bucket type. The handler will search for and consume another bucket of this type from the inventory.
+        //    - remainderItem: An empty BUCKET. The handler will give this item back to the player as the remainder.
+        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(event.getBucket()), ItemStack.of(Material.BUCKET)), 1L);
+
+    }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
@@ -38,22 +63,9 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onBucketFill(PlayerBucketFillEvent event) {
-        Player player = event.getPlayer();
-        // Refill should be delay 1 tick. Have to wait game logic fill water bucket first.
-        Bukkit.getScheduler().runTaskLater(plugin, () -> bucketFillRefillHandler.handle(player, event.getItemStack()), 1L);
-    }
-
-    @EventHandler
     public void onThrow(PlayerEggThrowEvent event) {
         Player player = event.getPlayer();
         commonRefillHandler.handle(player, event.getEgg().getItem());
-    }
-
-    @EventHandler
-    public void onBucketEmpty(PlayerBucketEmptyEvent event) {
-        Player player = event.getPlayer();
-        Bukkit.getScheduler().runTaskLater(plugin, () -> bucketEmptyRefillHandler.handle(player, ItemStack.of(event.getBucket())), 1L);
     }
 
     @EventHandler
