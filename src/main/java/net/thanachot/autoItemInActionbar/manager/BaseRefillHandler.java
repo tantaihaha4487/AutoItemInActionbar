@@ -28,7 +28,9 @@ public abstract class BaseRefillHandler {
 
         try {
             FoundItem foundItem = tryFindSource(player, itemBeforeAction);
-            if (foundItem == null) return;
+
+            if(isArmor(itemBeforeAction)) return; // Ignore is an armor
+            if (foundItem == null) return; // Return if finding item doesn't exit
 
             performRefill(player, foundItem, itemBeforeAction);
             onRefillSuccess(player, foundItem, itemBeforeAction);
@@ -85,10 +87,19 @@ public abstract class BaseRefillHandler {
      /**
       * @return {@link Boolean} If Bucket are filled.
       * */
-    protected boolean isFilledBucket(ItemStack itemStack) {
+    public boolean isFilledBucketType(ItemStack itemStack) {
         Material type = itemStack.getType();
         return type == Material.WATER_BUCKET || type == Material.LAVA_BUCKET || type == Material.MILK_BUCKET ||
                 type == Material.PUFFERFISH_BUCKET || type == Material.SALMON_BUCKET || type == Material.COD_BUCKET ||
                 type == Material.TROPICAL_FISH_BUCKET || type == Material.AXOLOTL_BUCKET;
+    }
+
+    /**
+     * @return {@link Boolean} If Item is Armor.
+     * */
+    public boolean isArmor(ItemStack itemStack) {
+        String itemTypeName = itemStack.getType().name();
+        return  itemTypeName.endsWith("_HELMET") || itemTypeName.endsWith("_CHESTPLATE")
+                || itemTypeName.endsWith("_LEGGINGS") || itemTypeName.endsWith("_BOOTS");
     }
 }

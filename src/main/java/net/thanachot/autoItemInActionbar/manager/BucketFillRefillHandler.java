@@ -14,7 +14,7 @@ public class BucketFillRefillHandler extends BaseRefillHandler {
     @Override
     protected FoundItem tryFindSource(Player player, ItemStack itemBeforeAction) {
         int heldSlot = player.getInventory().getHeldItemSlot();
-        if (!isFilledBucket(itemBeforeAction)) return null; // Is not an filled bucket
+        if (!isFilledBucketType(itemBeforeAction)) return null; // Is not an filled bucket
         return Finder.findFirstMatch(player.getInventory(), Material.BUCKET, heldSlot);
     }
 
