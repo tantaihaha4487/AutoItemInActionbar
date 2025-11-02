@@ -74,4 +74,11 @@ public class PlayerListener implements Listener {
         commonRefillHandler.handle(player, event.getBrokenItem());
     }
 
+    @EventHandler
+    public void onPlayerConsume(PlayerItemConsumeEvent event) {
+        Player player = event.getPlayer();
+        if (event.getItem().getType() == Material.MILK_BUCKET)
+            Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BUCKET)), 1L);
+    }
+
 }

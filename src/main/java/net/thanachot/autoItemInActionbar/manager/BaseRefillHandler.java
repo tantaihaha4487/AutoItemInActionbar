@@ -18,7 +18,8 @@ public abstract class BaseRefillHandler {
 
     /**
      * Handle common refill behaviour.
-     * @param player The player who triggered the action.
+     *
+     * @param player           The player who triggered the action.
      * @param itemBeforeAction The item that was in the player's hand before the action occurred (Trigger Item).
      */
     public final void handle(Player player, ItemStack itemBeforeAction) {
@@ -29,7 +30,7 @@ public abstract class BaseRefillHandler {
         try {
             FoundItem foundItem = tryFindSource(player, itemBeforeAction);
 
-            if(isArmor(itemBeforeAction)) return; // Ignore is an armor
+            if (isArmor(itemBeforeAction)) return; // Ignore is an armor
             if (foundItem == null) return; // Return if finding item doesn't exit
 
             performRefill(player, foundItem, itemBeforeAction);
@@ -41,10 +42,10 @@ public abstract class BaseRefillHandler {
     }
 
 
-
     /**
      * Subclasses should implement how to find the refill source.
-     * @param player The player to check for a refill source.
+     *
+     * @param player           The player to check for a refill source.
      * @param itemBeforeAction The item that was in the player's hand before the action that triggered the refill check.
      * @return a {@link FoundItem} if a suitable item to refill from is found, otherwise null.
      */
@@ -53,8 +54,9 @@ public abstract class BaseRefillHandler {
 
     /**
      * Common refill logic (can be overridden if needed).
-     * @param player The player for whom the refill is being performed.
-     * @param foundItem The item and its location in the inventory that will be used for the refill.
+     *
+     * @param player           The player for whom the refill is being performed.
+     * @param foundItem        The item and its location in the inventory that will be used for the refill.
      * @param itemBeforeAction The item that was in the player's hand before the action (Trigger Item), used here to determine some properties of the refill.
      */
     protected void performRefill(Player player, FoundItem foundItem, ItemStack itemBeforeAction) {
@@ -76,8 +78,9 @@ public abstract class BaseRefillHandler {
 
     /**
      * Hook called after refill. Subclass can override for specific use cases.
-     * @param player The player for whom the refill was successful.
-     * @param foundItem The item that was used for the refill.
+     *
+     * @param player           The player for whom the refill was successful.
+     * @param foundItem        The item that was used for the refill.
      * @param itemBeforeAction The item that was in the player's hand before the action.
      */
     protected void onRefillSuccess(Player player, FoundItem foundItem, ItemStack itemBeforeAction) {
@@ -87,9 +90,11 @@ public abstract class BaseRefillHandler {
     }
 
 
-     /**
-      * @return {@link Boolean} If Bucket are filled.
-      * */
+    /**
+     * @return {@link Boolean} If Bucket are filled.
+     *
+     */
+    @Deprecated
     public boolean isFilledBucketType(ItemStack itemStack) {
         Material type = itemStack.getType();
         return type == Material.WATER_BUCKET || type == Material.LAVA_BUCKET || type == Material.MILK_BUCKET ||
@@ -99,10 +104,11 @@ public abstract class BaseRefillHandler {
 
     /**
      * @return {@link Boolean} If Item is Armor.
-     * */
+     *
+     */
     public boolean isArmor(ItemStack itemStack) {
         String itemTypeName = itemStack.getType().name();
-        return  itemTypeName.endsWith("_HELMET") || itemTypeName.endsWith("_CHESTPLATE")
+        return itemTypeName.endsWith("_HELMET") || itemTypeName.endsWith("_CHESTPLATE")
                 || itemTypeName.endsWith("_LEGGINGS") || itemTypeName.endsWith("_BOOTS");
     }
 }

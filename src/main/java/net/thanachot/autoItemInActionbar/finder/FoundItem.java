@@ -13,8 +13,8 @@ public class FoundItem {
     /**
      * Constructs a FoundItem with the specified slot and item stack.
      *
-     * @param foundSlot  The slot where the item was found.
-     * @param itemStack  The ItemStack that was found.
+     * @param foundSlot The slot where the item was found.
+     * @param itemStack The ItemStack that was found.
      */
     public FoundItem(int foundSlot, ItemStack itemStack) {
         this.foundSlot = foundSlot;

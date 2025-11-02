@@ -16,9 +16,10 @@ public class RemainderProviderItemHandler extends BaseRefillHandler {
 
     /**
      * Handles the refill process for items that leave a remainder (e.g., buckets).
-     * @param player The player performing the action.
+     *
+     * @param player           The player performing the action.
      * @param itemBeforeAction The item in the player's hand before the action.
-     * @param remainderItem The ItemStack of the item that should be left in the inventory.
+     * @param remainderItem    The ItemStack of the item that should be left in the inventory.
      */
     public void handle(Player player, ItemStack itemBeforeAction, ItemStack remainderItem) {
         this.remainderItem = remainderItem;
@@ -33,8 +34,17 @@ public class RemainderProviderItemHandler extends BaseRefillHandler {
 
     @Override
     protected void performRefill(Player player, FoundItem foundItem, ItemStack itemBeforeAction) {
-        super.performRefill(player, foundItem, itemBeforeAction);
-        player.getInventory().addItem(remainderItem);
+        int heldSlot = player.getInventory().getHeldItemSlot();
+        ItemStack remainder = player.getInventory().getItem(heldSlot);
+
+        if (remainder == null) return;
+
+        // The source of items for the refill.
+        ItemStack sourceStack = foundItem.getItemStack();
+
+        // Swap the remainder item in the player's hand with the stack from the inventory. Prevent empty stacks.
+        player.getInventory().setItem(heldSlot, sourceStack);
+        player.getInventory().setItem(foundItem.getFoundSlot(), remainder);
     }
 
     @Override
