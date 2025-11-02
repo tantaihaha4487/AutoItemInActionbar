@@ -7,27 +7,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Refill handler for filled buckets (PlayerBucketFillEvent).
+ * Refill handler for empty buckets (PlayerBucketEmptyEvent).
  */
-public class BucketFillRefillHandler extends BaseRefillHandler {
-
+public class BucketEmptyRefillHandler extends BaseRefillHandler{
     @Override
     protected FoundItem tryFindSource(Player player, ItemStack itemBeforeAction) {
         int heldSlot = player.getInventory().getHeldItemSlot();
-        if (!isFilledBucket(itemBeforeAction)) return null; // Is not an filled bucket
-        return Finder.findFirstMatch(player.getInventory(), Material.BUCKET, heldSlot);
+        return Finder.findFirstMatch(player.getInventory(), itemBeforeAction.getType(), heldSlot);
     }
 
     @Override
     protected void performRefill(Player player, FoundItem foundItem, ItemStack itemBeforeAction) {
         super.performRefill(player, foundItem, itemBeforeAction);
-        player.getInventory().addItem(itemBeforeAction);
+        player.getInventory().addItem(ItemStack.of(Material.BUCKET));
     }
 
     @Override
     protected void onRefillSuccess(Player player, FoundItem foundItem, ItemStack itemBeforeAction) {
         super.onRefillSuccess(player, foundItem, itemBeforeAction);
     }
-
     
 }

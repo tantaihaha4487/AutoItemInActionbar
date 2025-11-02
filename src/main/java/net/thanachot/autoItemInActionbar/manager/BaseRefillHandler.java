@@ -3,6 +3,7 @@ package net.thanachot.autoItemInActionbar.manager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.thanachot.autoItemInActionbar.finder.FoundItem;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -78,5 +79,16 @@ public abstract class BaseRefillHandler {
         Component message = MiniMessage.miniMessage().deserialize("<b><gold>(<yellow>i</yellow>)</gold></b> <gradient:#9eee22:#55EA80:#246FD6>Auto Item In Actionbar</gradient>");
         player.sendActionBar(message);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.6f, 0.7f);
+    }
+
+
+     /**
+      * @return {@link Boolean} If Bucket are filled.
+      * */
+    protected boolean isFilledBucket(ItemStack itemStack) {
+        Material type = itemStack.getType();
+        return type == Material.WATER_BUCKET || type == Material.LAVA_BUCKET || type == Material.MILK_BUCKET ||
+                type == Material.PUFFERFISH_BUCKET || type == Material.SALMON_BUCKET || type == Material.COD_BUCKET ||
+                type == Material.TROPICAL_FISH_BUCKET || type == Material.AXOLOTL_BUCKET;
     }
 }

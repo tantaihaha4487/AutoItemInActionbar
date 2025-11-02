@@ -1,6 +1,7 @@
 package net.thanachot.autoItemInActionbar.listener;
 
 import net.thanachot.autoItemInActionbar.AutoItemInActionbar;
+import net.thanachot.autoItemInActionbar.manager.BucketEmptyRefillHandler;
 import net.thanachot.autoItemInActionbar.manager.BucketFillRefillHandler;
 import net.thanachot.autoItemInActionbar.manager.CommonRefillHandler;
 import org.bukkit.Bukkit;
@@ -8,15 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEggThrowEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerListener implements Listener {
 
     private final AutoItemInActionbar plugin;
     CommonRefillHandler commonRefillHandler = new CommonRefillHandler();
     BucketFillRefillHandler bucketFillRefillHandler = new BucketFillRefillHandler();
+    BucketEmptyRefillHandler bucketEmptyRefillHandler = new BucketEmptyRefillHandler();
+
 
     public PlayerListener(AutoItemInActionbar plugin) {
         this.plugin = plugin;
@@ -46,6 +51,12 @@ public class PlayerListener implements Listener {
     public void onThrow(PlayerEggThrowEvent event) {
         Player player = event.getPlayer();
         commonRefillHandler.handle(player, event.getEgg().getItem());
+    }
+
+    @EventHandler
+    public void onBucketEmpty(PlayerBucketEmptyEvent event) {
+        Player player = event.getPlayer();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> bucketEmptyRefillHandler.handle(player, ItemStack.of(event.getBucket())), 1L);
     }
 
 }
