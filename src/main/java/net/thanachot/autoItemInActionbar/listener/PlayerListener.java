@@ -77,8 +77,14 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
-        if (event.getItem().getType() == Material.MILK_BUCKET)
-            Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BUCKET)), 1L);
+        Material consumeItemType = event.getItem().getType();
+        switch (consumeItemType) {
+            case MILK_BUCKET ->
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BUCKET)), 1L);
+            case POTION, HONEY_BOTTLE ->
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.GLASS_BOTTLE)), 1L);
+            case SUSPICIOUS_STEW, MUSHROOM_STEW, RABBIT_STEW, BEETROOT_SOUP ->
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BOWL)), 1);
+        }
     }
-
 }
