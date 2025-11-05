@@ -1,20 +1,10 @@
 <p align="center">
-  <img src="https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/logo.png" alt="Logo" width="200"/>
-</p>
-<h1 align="center">AutoItemInActionbar</h1>
-<p align="center">
-  <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml">
-    <img src="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml/badge.svg" alt="Build Status">
-  </a>
-  <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/releases/latest">
-    <img src="https://img.shields.io/github/v/release/tantaihaha4487/AutoItemInActionbar?style=flat-square" alt="Latest Release">
-  </a>
-  <a href="https://modrinth.com/plugin/autoiteminactionbar">
-    <img src="https://img.shields.io/modrinth/dt/autoiteminactionbar?color=00AF5C&label=Modrinth&style=flat-square" alt="Modrinth Downloads">
-  </a>
+  <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml" style="text-decoration:none;"><img src="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml/badge.svg" alt="Build Status"></a>
+  <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/releases/latest" style="text-decoration:none;"><img src="https://img.shields.io/github/v/release/tantaihaha4487/AutoItemInActionbar?style=flat-square" alt="Latest Release"></a>
+  <a href="https://modrinth.com/plugin/autoiteminactionbar" style="text-decoration:none;"><img src="https://img.shields.io/modrinth/dt/autoiteminactionbar?color=00AF5C&label=Modrinth&style=flat-square" alt="Modrinth Downloads"></a>
 </p>
 
-# Preview
+## Preview
 
 ![](https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/preview.gif)
 
