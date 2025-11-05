@@ -3,6 +3,7 @@ package net.thanachot.autoItemInActionbar.manager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.thanachot.autoItemInActionbar.finder.FoundItem;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public abstract class BaseRefillHandler {
      * @param player           The player who triggered the action.
      * @param itemBeforeAction The item that was in the player's hand before the action occurred (Trigger Item).
      */
-    public final void handle(Player player, ItemStack itemBeforeAction) {
+    public void handle(Player player, ItemStack itemBeforeAction) {
 
         UUID id = player.getUniqueId();
         if (!processing.add(id)) return; // add returns false if already present
@@ -30,6 +31,7 @@ public abstract class BaseRefillHandler {
         try {
             FoundItem foundItem = tryFindSource(player, itemBeforeAction);
 
+            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return; // Player should in game mode survival
             if (isArmor(itemBeforeAction)) return; // Ignore is an armor
             if (foundItem == null) return; // Return if finding item doesn't exit
 

@@ -17,9 +17,8 @@ public class RemainderProviderItemHandler extends BaseRefillHandler {
      *
      * @param player           The player performing the action.
      * @param itemBeforeAction The item in the player's hand before the action.
-     * @param remainderItem    The ItemStack of the item that should be left in the inventory.
      */
-    public void handle(Player player, ItemStack itemBeforeAction, ItemStack remainderItem) {
+    public void handle(Player player, ItemStack itemBeforeAction) {
         super.handle(player, itemBeforeAction);
     }
 
