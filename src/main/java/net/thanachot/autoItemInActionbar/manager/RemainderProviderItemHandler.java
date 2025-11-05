@@ -12,8 +12,6 @@ import org.bukkit.inventory.ItemStack;
  */
 public class RemainderProviderItemHandler extends BaseRefillHandler {
 
-    private ItemStack remainderItem;
-
     /**
      * Handles the refill process for items that leave a remainder (e.g., buckets).
      *
@@ -22,7 +20,6 @@ public class RemainderProviderItemHandler extends BaseRefillHandler {
      * @param remainderItem    The ItemStack of the item that should be left in the inventory.
      */
     public void handle(Player player, ItemStack itemBeforeAction, ItemStack remainderItem) {
-        this.remainderItem = remainderItem;
         super.handle(player, itemBeforeAction);
     }
 

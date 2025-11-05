@@ -84,7 +84,7 @@ public class PlayerListener implements Listener {
             case POTION, HONEY_BOTTLE ->
                     Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.GLASS_BOTTLE)), 1L);
             case SUSPICIOUS_STEW, MUSHROOM_STEW, RABBIT_STEW, BEETROOT_SOUP ->
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BOWL)), 1);
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BOWL)), 1L);
         }
     }
 }
