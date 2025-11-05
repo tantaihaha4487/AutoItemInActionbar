@@ -31,7 +31,8 @@ public abstract class BaseRefillHandler {
         try {
             FoundItem foundItem = tryFindSource(player, itemBeforeAction);
 
-            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return; // Player should in game mode survival
+            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
+                return; // Player should in game mode survival
             if (isArmor(itemBeforeAction)) return; // Ignore is an armor
             if (foundItem == null) return; // Return if finding item doesn't exit
 

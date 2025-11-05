@@ -79,7 +79,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerPotionSplash(PotionSplashEvent event) {
         Player player = (Player) event.getPotion().getShooter();
-        if (event.getPotion().getItem().getType() != Material.SPLASH_POTION) return; // Only splash potion can be refilled.
+        if (event.getPotion().getItem().getType() != Material.SPLASH_POTION)
+            return; // Only splash potion can be refilled.
         if (player != null) {
             commonRefillHandler.handle(player, event.getPotion().getItem());
         }
@@ -88,7 +89,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onLingeringPotionSplashEvent(LingeringPotionSplashEvent event) {
         Player player = (Player) event.getEntity().getShooter();
-        if (event.getEntity().getItem().getType() != Material.LINGERING_POTION) return; // Only splash potion can be refilled.
+        if (event.getEntity().getItem().getType() != Material.LINGERING_POTION)
+            return; // Only splash potion can be refilled.
         if (player != null) {
             commonRefillHandler.handle(player, event.getEntity().getItem());
         }
