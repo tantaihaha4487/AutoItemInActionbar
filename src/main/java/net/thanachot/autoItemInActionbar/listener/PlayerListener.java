@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.LingeringPotionSplashEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -33,7 +35,7 @@ public class PlayerListener implements Listener {
         // 2. We trigger the refill handler with:
         //    - itemBeforeAction: An empty BUCKET. The handler will search for and consume another empty BUCKET from the inventory.
         //    - remainderItem: The filled bucket from the event. The handler will give this item back to the player.
-        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(Material.BUCKET), event.getItemStack()), 1L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(Material.BUCKET)), 1L);
 
     }
 
@@ -46,7 +48,7 @@ public class PlayerListener implements Listener {
         // 2. We trigger the refill handler with:
         //    - itemBeforeAction: The filled bucket type. The handler will search for and consume another bucket of this type from the inventory.
         //    - remainderItem: An empty BUCKET. The handler will give this item back to the player as the remainder.
-        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(event.getBucket()), ItemStack.of(Material.BUCKET)), 1L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(event.getBucket())), 1L);
 
     }
 
@@ -75,16 +77,30 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerPotionSplash(PotionSplashEvent event) {
+        Player player = (Player) event.getPotion().getShooter();
+        if (event.getPotion().getItem().getType() != Material.SPLASH_POTION) return; // Only splash potion can be refilled.
+        if (player != null) {
+            commonRefillHandler.handle(player, event.getPotion().getItem());
+        }
+    }
+
+    @EventHandler
+    public void onLingeringPotionSplashEvent(LingeringPotionSplashEvent event) {
+        Player player = (Player) event.getEntity().getShooter();
+        if (event.getEntity().getItem().getType() != Material.LINGERING_POTION) return; // Only splash potion can be refilled.
+        if (player != null) {
+            commonRefillHandler.handle(player, event.getEntity().getItem());
+        }
+    }
+
+    @EventHandler
     public void onPlayerConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
         Material consumeItemType = event.getItem().getType();
         switch (consumeItemType) {
-            case MILK_BUCKET ->
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BUCKET)), 1L);
-            case POTION, HONEY_BOTTLE ->
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.GLASS_BOTTLE)), 1L);
-            case SUSPICIOUS_STEW, MUSHROOM_STEW, RABBIT_STEW, BEETROOT_SOUP ->
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem(), ItemStack.of(Material.BOWL)), 1L);
+            case MILK_BUCKET, SUSPICIOUS_STEW, MUSHROOM_STEW, RABBIT_STEW, BEETROOT_SOUP, POTION, HONEY_BOTTLE ->
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem()), 1L);
         }
     }
 }
