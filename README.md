@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml" style="text-decoration:none;"><img src="https://github.com/tantaihaha4487/AutoItemInActionbar/actions/workflows/build-plugin.yml/badge.svg" alt="Build Status"></a>
   <a href="https://github.com/tantaihaha4487/AutoItemInActionbar/releases/latest" style="text-decoration:none;"><img src="https://img.shields.io/github/v/release/tantaihaha4487/AutoItemInActionbar?style=flat-square" alt="Latest Release"></a>
-  <a href="https://modrinth.com/plugin/autoiteminactionbar" style="text-decoration:none;"><img src="https://img.shields.io/modrinth/dt/autoiteminactionbar?color=00AF5C&label=Modrinth&style=flat-square" alt="Modrinth Downloads"></a>
+  <a href="https://modrinth.com/plugin/autoiteminactionbar" style="text-decoration:none;"><img src="https://img.shields.io/modrinth/dt/autoiteminactionbar?color=00AF5C&logo=modrinth&label=Modrinth&style=flat-square" alt="Modrinth Downloads"></a>
 </p>
 
 ## Preview
