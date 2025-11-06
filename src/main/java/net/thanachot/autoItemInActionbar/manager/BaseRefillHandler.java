@@ -2,6 +2,7 @@ package net.thanachot.autoItemInActionbar.manager;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.thanachot.autoItemInActionbar.finder.Finder;
 import net.thanachot.autoItemInActionbar.finder.FoundItem;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -9,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -90,6 +92,11 @@ public abstract class BaseRefillHandler {
         Component message = MiniMessage.miniMessage().deserialize("<b><gold>(<yellow>i</yellow>)</gold></b> <gradient:#9eee22:#55EA80:#246FD6>Auto Item In Actionbar</gradient>");
         player.sendActionBar(message);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.6f, 0.7f);
+    }
+
+
+    public List<FoundItem> findAllShulker(Player player) {
+        return Finder.findAllMatchByName(player.getInventory(), "shulker_block", -1);
     }
 
 

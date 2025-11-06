@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Finder {
     }
 
     @Deprecated
-    public static List<FoundItem> findAllMatch(Player player, Material type, int excludedSlot) {
+    public static List<FoundItem> findAllMatchByType(Player player, Material type, int excludedSlot) {
         List<FoundItem> foundItems = new ArrayList<>();
         ItemStack[] playerInventory = player.getInventory().getContents();
         for (int i = 0; i < playerInventory.length; i++) {
@@ -53,7 +54,7 @@ public class Finder {
     }
 
 
-    public static List<FoundItem> findAllMatch(Inventory inventory, Material type, int excludedSlot) {
+    public static List<FoundItem> findAllMatchByType(Inventory inventory, Material type, int excludedSlot) {
         List<FoundItem> foundItems = new ArrayList<>();
         ItemStack[] inventoryContents = inventory.getContents();
         for (int i = 0; i < inventoryContents.length; i++) {
@@ -61,6 +62,22 @@ public class Finder {
             ItemStack item = inventoryContents[i];
             if (item != null && item.getType() == type) {
                 foundItems.add(new FoundItem(i, item));
+            }
+        }
+        return foundItems;
+    }
+
+    public static List<FoundItem> findAllMatchByName(Inventory inventory, String itemName, int excludedSlot) {
+        List<FoundItem> foundItems = new ArrayList<>();
+        ItemStack[] inventoryContents = inventory.getContents();
+        for (int i = 0; i < inventoryContents.length; i++) {
+            if (i == excludedSlot) continue; // Skip the excluded slot
+            ItemStack item = inventoryContents[i];
+            if (item != null) {
+                String materialKey = item.getType().name();
+                if (materialKey.toLowerCase().contains(itemName.toLowerCase())) {
+                    foundItems.add(new FoundItem(i, item));
+                }
             }
         }
         return foundItems;
