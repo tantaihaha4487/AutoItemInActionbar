@@ -31,6 +31,8 @@ public abstract class BaseRefillHandler {
         if (!processing.add(id)) return; // add returns false if already present
 
         try {
+            if (player.isSneaking()) return; // Player should not be sneaking
+
             FoundItem foundItem = tryFindSource(player, itemBeforeAction);
 
             if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)

@@ -27,6 +27,7 @@ off-hand, refilling them automatically from your inventory.
   will automatically provide you with a fresh one if available.
 - **Action Bar Feedback:** Get a quick, unobtrusive confirmation in your action bar when an item is refilled.
 - **Zero Configuration:** Simply drop it in and it works. No setup required.
+- **Hold Shift to Disable:** Hold down the **shift** key to temporarily prevent the plugin from refilling items.
 
 ## How to Use
 
