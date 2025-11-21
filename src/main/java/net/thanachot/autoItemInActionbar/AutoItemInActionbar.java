@@ -1,7 +1,7 @@
 package net.thanachot.autoItemInActionbar;
 
-import net.thanachot.autoItemInActionbar.listener.PlayerListener;
 import net.thanachot.autoItemInActionbar.bstats.Metrics;
+import net.thanachot.autoItemInActionbar.listener.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AutoItemInActionbar extends JavaPlugin {
