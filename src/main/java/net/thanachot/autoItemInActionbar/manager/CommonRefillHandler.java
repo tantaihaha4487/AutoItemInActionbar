@@ -19,7 +19,7 @@ public class CommonRefillHandler extends BaseRefillHandler {
         int heldSlot = player.getInventory().getHeldItemSlot();
         ItemStack heldItem = player.getInventory().getItemInMainHand();
 
-        if (heldItem.getType() != Material.AIR) return null; //
+        if (heldItem.getType() != Material.AIR) return null;
 
         return Finder.findFirstMatch(player.getInventory(), triggerItem.getType(), heldSlot);
     }

@@ -48,61 +48,73 @@ public class PlayerListener implements Listener {
         // 2. We trigger the refill handler with:
         //    - itemBeforeAction: The filled bucket type. The handler will search for and consume another bucket of this type from the inventory.
         //    - remainderItem: An empty BUCKET. The handler will give this item back to the player as the remainder.
-        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, ItemStack.of(event.getBucket())), 1L);
+        final ItemStack bucket = ItemStack.of(event.getBucket());
+        Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, bucket), 1L);
 
     }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        commonRefillHandler.handle(player, event.getItemInHand());
+        final ItemStack item = event.getItemInHand().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void PlayerDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        commonRefillHandler.handle(player, event.getItemDrop().getItemStack());
+        final ItemStack item = event.getItemDrop().getItemStack().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void onThrow(PlayerEggThrowEvent event) {
         Player player = event.getPlayer();
-        commonRefillHandler.handle(player, event.getEgg().getItem());
+        final ItemStack item = event.getEgg().getItem().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void onPlayerItemBreak(PlayerItemBreakEvent event) {
         Player player = event.getPlayer();
-        commonRefillHandler.handle(player, event.getBrokenItem());
+        final ItemStack item = event.getBrokenItem().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void onPlayerPotionSplash(PotionSplashEvent event) {
-        Player player = (Player) event.getPotion().getShooter();
+        if (!(event.getPotion().getShooter() instanceof Player player)) return;
         if (event.getPotion().getItem().getType() != Material.SPLASH_POTION)
             return; // Only splash potion can be refilled.
-        if (player != null) {
-            commonRefillHandler.handle(player, event.getPotion().getItem());
-        }
+
+        final ItemStack item = event.getPotion().getItem().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void onLingeringPotionSplashEvent(LingeringPotionSplashEvent event) {
-        Player player = (Player) event.getEntity().getShooter();
+        if (!(event.getEntity().getShooter() instanceof Player player)) return;
         if (event.getEntity().getItem().getType() != Material.LINGERING_POTION)
             return; // Only splash potion can be refilled.
-        if (player != null) {
-            commonRefillHandler.handle(player, event.getEntity().getItem());
-        }
+
+        final ItemStack item = event.getEntity().getItem().clone();
+        Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, item), 1L);
     }
 
     @EventHandler
     public void onPlayerConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
-        Material consumeItemType = event.getItem().getType();
+        final ItemStack consumedItem = event.getItem().clone();
+        Material consumeItemType = consumedItem.getType();
+
         switch (consumeItemType) {
             case MILK_BUCKET, SUSPICIOUS_STEW, MUSHROOM_STEW, RABBIT_STEW, BEETROOT_SOUP, POTION, HONEY_BOTTLE ->
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, event.getItem()), 1L);
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> remainderProviderItemHandler.handle(player, consumedItem), 1L);
+            default -> {
+                if (consumedItem.getType().isEdible()) {
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> commonRefillHandler.handle(player, consumedItem), 1L);
+                }
+            }
         }
     }
 }
