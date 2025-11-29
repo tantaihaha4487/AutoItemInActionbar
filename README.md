@@ -4,12 +4,21 @@
   <a href="https://modrinth.com/plugin/autoiteminactionbar" style="text-decoration:none;"><img src="https://img.shields.io/modrinth/dt/autoiteminactionbar?color=00AF5C&logo=modrinth&label=Modrinth&style=flat-square" alt="Modrinth Downloads"></a>
 </p>
 
-## Preview
-
-![](https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/preview.gif)
 
 AutoItemInActionbar is a lightweight utility plugin that ensures you always have important items ready in your hand or
 off-hand, refilling them automatically from your inventory.
+
+## Preview
+
+### Simple Refill
+
+![Preview](https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/preview.gif)
+
+### Smart Bucket Refill
+
+![Bucket Handle Preview](https://github.com/tantaihaha4487/assets/raw/refs/heads/main/AutoItemInActionbar/bucket_handle.gif)
+
+
 
 ## Features
 
